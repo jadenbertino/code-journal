@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Code Journal</title>
   <link rel="icon" href="images/favicon.ico">
@@ -22,24 +23,26 @@
     </div>
   </header>
   <main class="container">
-    <div class="new-entry" data-view="entry-form">
-      <form>
-        <h2>New Entry</h2>
-        <img src="./images/placeholder-image-square.jpg" alt="placeholder image" />
-        <label>
-          <span>Title</span>
-          <input type="text" name="title" />
-        </label>
-        <label>
-          <span>Photo URL</span>
-          <input type="text" name="photoURL" />
-        </label>
-        <label>
-          <span>Notes</span>
-          <textarea name="notes"></textarea>
-        </label>
-        <button class="btn">SAVE</button>
-      </form>
+    <div class="row">
+      <div class="new-entry" data-view="entry-form">
+        <form>
+          <h2>New Entry</h2>
+          <img src="./images/placeholder-image-square.jpg" alt="placeholder image" />
+          <label>
+            <span>Title</span>
+            <input type="text" name="title" />
+          </label>
+          <label>
+            <span>Photo URL</span>
+            <input type="text" name="photoURL" />
+          </label>
+          <label>
+            <span>Notes</span>
+            <textarea name="notes"></textarea>
+          </label>
+          <button class="btn">SAVE</button>
+        </form>
+      </div>
     </div>
     <div data-view="entries" class="hidden"></div>
   </main>
