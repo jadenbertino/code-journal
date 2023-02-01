@@ -1,8 +1,9 @@
 /* exported data */
 
-var data = {
+const data = {
   view: 'entry-form',
   entries: [],
   editing: null,
   nextEntryId: 1
 };
+
