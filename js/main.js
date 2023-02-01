@@ -1,4 +1,4 @@
-const $newEntryImg = document.querySelector('.new-entry .img-wrapper')
+const $newEntryImg = document.querySelector('.new-entry img')
 const $newEntryPhotoURL = document.querySelector('#new-entry-photoURL')
 
 function loadImg(src) {
@@ -12,16 +12,10 @@ function loadImg(src) {
 
 $newEntryPhotoURL.addEventListener('input', async (e) => {
   try {
-    if ($newEntryPhotoURL.value === "") {
-      $newEntryImg.setAttribute('background-image', "url('./images/placeholder-image-square.jpg')")
-      // $newEntryImg.style.backgroundImage = 
-    } else {
-      // $newEntryImg.style.backgroundImage = `url("${$newEntryPhotoURL.value}"`
-      $newEntryImg.setAttribute('background-image', `url("${$newEntryPhotoURL.value}"`)
-      console.log('everything ran smoothly')
-    }
+    const img = await loadImg($newEntryPhotoURL.value)
+    $newEntryImg.setAttribute('src', img.src)
   } catch {
-    $newEntryImg.style.backgroundImage = `url("./images/placeholder-image-square.jpg")`
-    console.log('fuck')
+    // invalid img url
+    $newEntryImg.setAttribute('src', "./images/placeholder-image-square.jpg")
   }
 })
