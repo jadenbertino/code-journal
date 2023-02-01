@@ -59,7 +59,8 @@ header h1 {
 }
 
 .new-entry img {
-  max-height: 200px;
+  max-height: 250px;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -90,4 +91,29 @@ header h1 {
   margin-left: auto;
   background-color: #562B81;
   color: white;
+}
+
+/*
+
+    MOBILE OPS
+
+*/
+
+@media (min-width: 992px) {
+  .form-wrapper {
+    display: flex;
+  }
+
+  .form-wrapper img {
+    padding-right: 10px;
+    max-height: 350px;
+  }
+
+  .form-wrapper .col-half:nth-child(2) {
+    padding-left: 10px;
+  }
+
+  .new-entry textarea {
+    min-height: 200px;
+  }
 }

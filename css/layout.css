@@ -14,17 +14,12 @@
 }
 
 .column-full,
-.column-half {
+.col-half {
   width: 100%;
 }
 
-@media screen and (min-width: 768px) {
-  .column-full,
-  .column-half {
-    padding: 0 0.75rem;
-  }
-
-  .column-half {
+@media screen and (min-width: 992px) {
+  .col-half {
     width: 50%;
   }
 }
