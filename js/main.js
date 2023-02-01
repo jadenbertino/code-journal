@@ -3,7 +3,6 @@ const $newEntryImg = document.querySelector('.new-entry img')
 const $newEntryPhotoURL = document.querySelector('#new-entry-photoURL')
 
 // Photo URL input updates new entry preview img
-
 function loadImg(src) {
   return new Promise((resolve, reject) => {
     const img = new Image()
