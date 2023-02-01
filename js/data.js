@@ -14,4 +14,3 @@ const data = prevData ? JSON.parse(prevData) : {
   editing: null,
   nextEntryId: 1
 }
-console.log(data)
