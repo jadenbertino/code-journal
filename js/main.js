@@ -2,7 +2,6 @@ const $newEntryForm = document.querySelector('#new-entry-form')
 const $newEntryImg = document.querySelector('.new-entry img')
 const $newEntryPhotoURL = document.querySelector('#new-entry-photoURL')
 
-// Photo URL input updates new entry preview img
 function loadImg(src) {
   return new Promise((resolve, reject) => {
     const img = new Image()
@@ -12,6 +11,7 @@ function loadImg(src) {
   })
 }
 
+// Photo URL input updates new entry preview img
 $newEntryPhotoURL.addEventListener('input', async (e) => {
   try {
     const img = await loadImg($newEntryPhotoURL.value)
