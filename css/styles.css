@@ -3,10 +3,6 @@ body {
   color: #292929;
 }
 
-img {
-  max-width: 100%;
-}
-
 .btn {
   padding: 8px 12px;
   border: none;
@@ -52,15 +48,21 @@ header h1 {
 }
 
 .new-entry h2,
-.new-entry img,
+.new-entry .img-wrapper,
 .new-entry label,
 .new-entry button {
   margin-top: 24px;
 }
 
+.new-entry .img-wrapper {
+  height: 250px;
+  overflow: hidden;
+}
+
 .new-entry img {
-  max-height: 250px;
+  /* https://stackoverflow.com/questions/34247337/object-fit-not-affecting-images */
   width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -104,9 +106,9 @@ header h1 {
     display: flex;
   }
 
-  .form-wrapper img {
+  .form-wrapper .img-wrapper {
     padding-right: 10px;
-    max-height: 350px;
+    height: 350px;
   }
 
   .form-wrapper .col-half:nth-child(2) {

@@ -28,25 +28,26 @@
           <form>
             <h2>New Entry</h2>
             <div class="form-wrapper">
-              <div class="col-half">
+              <div class="col-half img-wrapper">
                 <img
+                id="new-entry-img"
                 src="./images/placeholder-image-square.jpg"
                 alt="placeholder image" />
               </div>
               <div class="col-half">
                 <label>
                   <span>Title</span>
-                  <input type="text" name="title" />
+                  <input type="text" name="title" required />
                 </label>
                 <label>
                   <span>Photo URL</span>
-                  <input type="text" name="photoURL" />
+                  <input type="text" name="photoURL" id="new-entry-photoURL" required />
                 </label>
               </div>
             </div>
             <label>
               <span>Notes</span>
-              <textarea name="notes"></textarea>
+              <textarea name="notes" required></textarea>
             </label>
             <button class="btn">SAVE</button>
           </form>
