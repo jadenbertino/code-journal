@@ -22,30 +22,66 @@ $newEntryPhotoURL.addEventListener('input', async (e) => {
   }
 })
 
+// Form Validation Helpers
 function checkIfAlphanumeric(char) {
-  if (typeof char !== 'string') return false // must be string
+  if (typeof char !== 'string') return false
   if (char >= 0 && char <= 9) return true // number
   if (char.toLowerCase() !== char.toUpperCase()) return true // alphabetical
   return false // not alphanumeric
 }
 
-function checkValidEntryInput(str) {
-  if (typeof str !== 'string') return false // must be string
+function checkIfValidEntryInput(str) {
+  if (typeof str !== 'string') return false 
 
-  // must contain at least 1 alphanumeric char
+  // has at least 1 alphanumeric char
   return !!str.split('').filter(char => checkIfAlphanumeric(char)).length
 }
 
-// Form Submit
-$newEntryForm.addEventListener('submit', (e) => {
+// Form Submit & Validation
+$newEntryForm.addEventListener('submit', async (e) => {
+  /*
+  create newEntry object to store valid formControl name + values
+  iterate through formControls
+    check that value is valid
+      if valid => push to newEntry + reset form control color
+      if invalid => outline that form control in red
+  check that newEntry Object is same length as # of form controls. means that all form controls were valid
+    if true then push newEntry to data
+  */
   e.preventDefault()
-
   const newEntry = { entryId: data.nextEntryId }
-  data.nextEntryId++
-  for (let control of $newEntryForm) {
-    if (control.name) newEntry[control.name] = control.value
+  
+  for (let formControl of $newEntryForm) {
+    if (!formControl.name) continue // skip button
+    
+    // img url
+    if (formControl.name === 'photoURL') { 
+      try {
+        const {src} = await loadImg(formControl.value)
+        newEntry.photoURL = src
+        $newEntryForm.elements["new-entry-photoURL"].style.outline = "inherit"
+      } catch {
+        $newEntryForm.elements["new-entry-photoURL"].style.outline = "medium solid red"
+      }
+    } 
+    
+    // title + notes
+    else { 
+      const isValidEntry = checkIfValidEntryInput(formControl.value)
+      if (isValidEntry) {
+        newEntry[formControl.name] = formControl.value
+        $newEntryForm.elements[`new-entry-${formControl.name}`].style.outline = "inherit"
+      } else {
+        $newEntryForm.elements[`new-entry-${formControl.name}`].style.outline = "medium solid red"
+      }
+    }
   }
-  data.entries.unshift(newEntry)
-  $newEntryImg.setAttribute('src', "./images/placeholder-image-square.jpg")
-  e.target.reset()
+
+  // if newEntry is length 4 then all form controls were pushed aka all form controls were all valid
+  if (Object.keys(newEntry).length === $newEntryForm.length) {
+    data.entries.unshift(newEntry)
+    data.nextEntryId++
+    $newEntryImg.setAttribute('src', "./images/placeholder-image-square.jpg")
+    e.target.reset()
+  }
 })
