@@ -22,6 +22,20 @@ $newEntryPhotoURL.addEventListener('input', async (e) => {
   }
 })
 
+function checkIfAlphanumeric(char) {
+  if (typeof char !== 'string') return false // must be string
+  if (char >= 0 && char <= 9) return true // number
+  if (char.toLowerCase() !== char.toUpperCase()) return true // alphabetical
+  return false // not alphanumeric
+}
+
+function checkValidEntryInput(str) {
+  if (typeof str !== 'string') return false // must be string
+
+  // must contain at least 1 alphanumeric char
+  return !!str.split('').filter(char => checkIfAlphanumeric(char)).length
+}
+
 // Form Submit
 $newEntryForm.addEventListener('submit', (e) => {
   e.preventDefault()
