@@ -7,6 +7,8 @@
 const $newEntryForm = document.querySelector('#new-entry-form');
 const $newEntryImg = document.querySelector('.new-entry img');
 const $newEntryPhotoURL = document.querySelector('#new-entry-photoURL');
+const $newEntryHeader = document.querySelector('.form-header h1')
+
 
 function loadImg(src) {
   return new Promise((resolve, reject) => {
@@ -88,12 +90,40 @@ $newEntryForm.addEventListener('submit', async e => {
 
   // if newEntry is length 4 then all form controls were pushed aka all form controls were all valid
   if (Object.keys(newEntry).length === $newEntryForm.length) {
-    data.entries.unshift(newEntry);
-    data.nextEntryId++;
+
+    // new entry
+    if (!data.editing) {
+      data.entries.unshift(newEntry);
+      data.nextEntryId++;
+      const $newEntry = renderEntry(newEntry);
+      $viewEntriesList.prepend($newEntry);
+    }
+
+    // update entry
+    else {
+      // update data
+      const targetID = data.editing.entryId
+      newEntry.entryId = targetID
+      for (let i = 0; i < data.entries.length; i++) {
+        if (data.entries[i].entryId == targetID) {
+          data.entries[i] = newEntry
+        }
+      }
+      data.editing = null
+
+      // update DOM
+      const $newEntry = renderEntry(newEntry);
+      for (let child of $viewEntriesList.children) {
+        if (child.getAttribute('data-entry-id') == targetID) {
+          $viewEntriesList.replaceChild($newEntry, child)
+        }
+      }
+      $newEntryHeader.textContent = "New Entry"
+    }
+
+    // reset form + view entries
     $newEntryImg.setAttribute('src', './images/placeholder-image-square.jpg');
     e.target.reset();
-    const $newEntry = renderEntry(newEntry);
-    $viewEntriesList.insertBefore($newEntry, $viewEntriesList.firstChild);
     setEntryVisibility();
     viewSwap('entries');
   }
@@ -191,6 +221,16 @@ const $views = [
 ];
 
 function viewSwap(viewName) {
+  // reset forms if swapping to that view
+  if (viewName === 'entry-form') {
+    const formControls = $newEntryForm.elements
+    formControls.title.value = ''
+    formControls.photoURL.value = ''
+    formControls.notes.value = ''
+    $newEntryImg.setAttribute('src', './images/placeholder-image-square.jpg');
+  }
+
+  // set hidden attributes on divs
   $views.forEach(view => {
     if (view.getAttribute('data-view') === viewName) {
       view.classList.remove('hidden');
@@ -233,15 +273,14 @@ $viewEntriesList.addEventListener('click', (e) => {
   }
 
   // Pre-Populate Form
+  viewSwap('entry-form')
   const formControls = $newEntryForm.elements
   const targetEntry = data.editing
   formControls.title.value = targetEntry.title
   formControls.photoURL.value = targetEntry.photoURL
   formControls.notes.value = targetEntry.notes
   $newEntryImg.setAttribute('src', targetEntry.photoURL);
-  viewSwap('entry-form')
 
   // Change header from "New Entry" to "Edit Entry"
-  const $newEntryHeader = document.querySelector('.form-header h1')
   $newEntryHeader.textContent = "Edit Entry"
 })
