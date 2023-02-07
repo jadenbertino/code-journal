@@ -21,6 +21,19 @@ button {
   cursor: pointer;
 }
 
+h1 {
+  font-size: 36px;
+}
+
+
+img {
+  /* all img elems will be in .img-wrapper */
+  /* https://stackoverflow.com/questions/34247337/object-fit-not-affecting-images */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /*
 
     HEADER
@@ -40,6 +53,11 @@ header .container {
 
 header span {
   font-size: 24px;
+}
+
+header button {
+  margin-left: 16px;
+  font-size: 16px;
 }
 
 /*
@@ -75,21 +93,10 @@ header span {
   margin-top: 24px;
 }
 
-.new-entry h1 {
-  font-size: 36px;
-}
-
 .new-entry .img-wrapper {
   height: 250px;
   border-radius: 8px;
   overflow: hidden;
-}
-
-.new-entry img {
-  /* https://stackoverflow.com/questions/34247337/object-fit-not-affecting-images */
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .new-entry span {
@@ -148,7 +155,7 @@ header span {
 
 /*
 
-    DISPLAY ENTRIES
+    VIEW ENTRIES
 
 */
 
@@ -156,21 +163,12 @@ header span {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.view-entries .header {
   margin-top: 16px;
 }
 
 .view-entries li {
   list-style-type: none;
   margin: 24px 0 40px;
-}
-
-.view-entries img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .view-entries .img-wrapper {

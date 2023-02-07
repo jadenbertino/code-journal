@@ -91,6 +91,7 @@ $newEntryForm.addEventListener('submit', async (e) => {
     e.target.reset()
     const $newEntry = renderEntry(data.entries[0])
     $viewEntriesList.insertBefore($newEntry, $viewEntriesList.firstChild)
+    viewSwap('entries')
   }
 })
 
@@ -145,6 +146,8 @@ const $noEntries = document.querySelector('#no-entries')
 
 function renderAllEntries() {
   const entries = data.entries
+
+  // there are entries
   if (entries.length) {
     $noEntries.classList.add('hidden')
     $viewEntries.classList.remove('hidden')
@@ -152,7 +155,10 @@ function renderAllEntries() {
       const newEntry = renderEntry(entry)
       $viewEntriesList.appendChild(newEntry)
     })
-  } else {
+  } 
+  
+  // no entries => display "no entries" text
+  else {
     $noEntries.classList.remove('hidden')
     $viewEntriesList.classList.add('hidden')
   }
@@ -175,9 +181,13 @@ function viewSwap(viewName) {
   })
   data.view = viewName
 }
+const prevSessionView = data.view
+viewSwap(prevSessionView)
 
 const $newEntryBtn = document.querySelector('#new-entry-btn') 
 const $viewEntriesBtn = document.querySelector('#view-entries-btn')
+const $navViewEntriesBtn = document.querySelector('header button')
 
 $newEntryBtn.addEventListener('click', () => viewSwap('entry-form'))
 $viewEntriesBtn.addEventListener('click', () => viewSwap('entries'))
+$navViewEntriesBtn.addEventListener('click', () => viewSwap('entries'))
