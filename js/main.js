@@ -89,8 +89,9 @@ $newEntryForm.addEventListener('submit', async (e) => {
     data.nextEntryId++
     $newEntryImg.setAttribute('src', "./images/placeholder-image-square.jpg")
     e.target.reset()
-    const $newEntry = renderEntry(data.entries[0])
+    const $newEntry = renderEntry(newEntry)
     $viewEntriesList.insertBefore($newEntry, $viewEntriesList.firstChild)
+    setEntryVisibility()
     viewSwap('entries')
   }
 })
@@ -139,31 +140,30 @@ function renderEntry(entry) {
   return li
 }
 
-// Render All Entries
 const $viewEntries = document.querySelector('.view-entries')
 const $viewEntriesList = document.querySelector('.view-entries ul')
 const $noEntries = document.querySelector('#no-entries')
 
-function renderAllEntries() {
-  const entries = data.entries
-
-  // there are entries
-  if (entries.length) {
+function setEntryVisibility() {
+  // Display entries if there are any
+  if (data.entries.length) {
     $noEntries.classList.add('hidden')
-    $viewEntries.classList.remove('hidden')
-    entries.forEach(entry => {
-      const newEntry = renderEntry(entry)
-      $viewEntriesList.appendChild(newEntry)
-    })
-  } 
+    $viewEntriesList.classList.remove('hidden')
+  }
   
-  // no entries => display "no entries" text
+  // Display "no entries" text if none available
   else {
     $noEntries.classList.remove('hidden')
     $viewEntriesList.classList.add('hidden')
   }
 }
-renderAllEntries()
+setEntryVisibility()
+
+// Render all current entries upon page load
+data.entries.forEach(entry => {
+  const newEntry = renderEntry(entry)
+  $viewEntriesList.appendChild(newEntry)
+})
 
 // View Swapping
 const $views = [
