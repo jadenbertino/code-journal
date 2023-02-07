@@ -18,7 +18,7 @@ function loadImg(src) {
 }
 
 // Photo URL input updates new entry preview img
-$newEntryPhotoURL.addEventListener('input', async e => {
+$newEntryPhotoURL.addEventListener('input', async (e) => {
   try {
     const img = await loadImg($newEntryPhotoURL.value);
     $newEntryImg.setAttribute('src', img.src);
@@ -221,8 +221,7 @@ $navViewEntriesBtn.addEventListener('click', () => viewSwap('entries'));
 
 $viewEntriesList.addEventListener('click', (e) => {
   if (!e.target.classList.contains('pencil')) return
-  viewSwap('entries')
-
+  
   // Get target entry
   const parentListItem = e.target.closest('li')
   const targetID = parentListItem.getAttribute('data-entry-id')
@@ -233,4 +232,16 @@ $viewEntriesList.addEventListener('click', (e) => {
     }
   }
 
+  // Pre-Populate Form
+  const formControls = $newEntryForm.elements
+  const targetEntry = data.editing
+  formControls.title.value = targetEntry.title
+  formControls.photoURL.value = targetEntry.photoURL
+  formControls.notes.value = targetEntry.notes
+  $newEntryImg.setAttribute('src', targetEntry.photoURL);
+  viewSwap('entry-form')
+
+  // Change header from "New Entry" to "Edit Entry"
+  const $newEntryHeader = document.querySelector('.form-header h1')
+  $newEntryHeader.textContent = "Edit Entry"
 })
