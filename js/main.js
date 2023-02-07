@@ -119,7 +119,6 @@ function renderEntry(entry) {
   </li>
 
   */
-
   const li = document.createElement('li');
   const imgWrapper = document.createElement('div');
   const entryImg = document.createElement('img');
@@ -155,6 +154,7 @@ function renderEntry(entry) {
   // li
   li.appendChild(imgWrapper);
   li.appendChild(textWrapper);
+  li.setAttribute('data-entry-id', entry.entryId)
 
   return li;
 }
@@ -210,3 +210,27 @@ const $navViewEntriesBtn = document.querySelector('header button');
 $newEntryBtn.addEventListener('click', () => viewSwap('entry-form'));
 $viewEntriesBtn.addEventListener('click', () => viewSwap('entries'));
 $navViewEntriesBtn.addEventListener('click', () => viewSwap('entries'));
+
+
+
+/*
+
+    EDIT ENTRY
+
+*/ 
+
+$viewEntriesList.addEventListener('click', (e) => {
+  if (!e.target.classList.contains('pencil')) return
+  viewSwap('entries')
+
+  // Get target entry
+  const parentListItem = e.target.closest('li')
+  const targetID = parentListItem.getAttribute('data-entry-id')
+  for (let entry of data.entries) {
+    if (entry.entryId == targetID) {
+      data.editing = entry
+      break
+    }
+  }
+
+})

@@ -197,6 +197,10 @@ button.pencil {
   font-size: 16px;
 }
 
+.fa-pencil {
+  pointer-events: none; /* click should hit button not the icon */
+}
+
 #no-entries {
   text-align: center;
   margin-top: 24px;
