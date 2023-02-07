@@ -127,6 +127,7 @@ function renderEntry(entry) {
   const headerWrapper = document.createElement('div');
   const entryTitle = document.createElement('h3');
   const entryTitleText = document.createTextNode(entry.title);
+  const pencilBtn = document.createElement('button')
   const pencilIcon = document.createElement('i');
   const entryDescription = document.createElement('p');
   const entryDescriptionText = document.createTextNode(entry.notes);
@@ -139,8 +140,12 @@ function renderEntry(entry) {
   // header wrapper
   textWrapper.appendChild(headerWrapper);  
   headerWrapper.appendChild(entryTitle)
-  headerWrapper.appendChild(pencilIcon)
+  headerWrapper.appendChild(pencilBtn)
+  pencilBtn.appendChild(pencilIcon)
   entryTitle.appendChild(entryTitleText);
+  headerWrapper.setAttribute('class', 'entry-header-wrapper')
+  pencilIcon.setAttribute('class', 'fa-solid fa-pencil')
+  pencilBtn.setAttribute('class', 'pencil')
 
   // text wrapper
   textWrapper.setAttribute('class', 'text-wrapper');
