@@ -143,9 +143,9 @@ function renderEntry(entry) {
   headerWrapper.appendChild(pencilBtn)
   pencilBtn.appendChild(pencilIcon)
   entryTitle.appendChild(entryTitleText);
-  headerWrapper.setAttribute('class', 'entry-header-wrapper')
+  headerWrapper.setAttribute('class', 'entry-title-wrapper')
   pencilIcon.setAttribute('class', 'fa-solid fa-pencil')
-  pencilBtn.setAttribute('class', 'pencil')
+  pencilBtn.setAttribute('class', 'btn pencil')
 
   // text wrapper
   textWrapper.setAttribute('class', 'text-wrapper');
@@ -153,8 +153,8 @@ function renderEntry(entry) {
   entryDescription.appendChild(entryDescriptionText);
 
   // li
-  li.appendChild(textWrapper);
   li.appendChild(imgWrapper);
+  li.appendChild(textWrapper);
 
   return li;
 }

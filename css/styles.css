@@ -12,7 +12,7 @@ textarea {
   font-family: 'Proza Libre', sans-serif;
 }
 
-button {
+.btn {
   background-color: #562B81;
   color: white;
   padding: 8px 16px;
@@ -168,7 +168,13 @@ header button {
 
 .view-entries li {
   list-style-type: none;
-  margin: 24px 0 40px;
+  margin: 24px 0 50px;
+}
+
+.view-entries .entry-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .view-entries .img-wrapper {
@@ -183,6 +189,12 @@ header button {
 .view-entries h3 {
   font-size: 20px;
   margin: 16px 0;
+}
+
+button.pencil {
+  background-color: #fff;
+  color: #562B81;
+  font-size: 16px;
 }
 
 #no-entries {
@@ -200,7 +212,6 @@ header button {
   
   .view-entries li {
     display: flex;
-    margin-bottom: 40px;
   }
 
   .view-entries h3 {
