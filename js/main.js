@@ -1,3 +1,9 @@
+/*
+
+    NEW ENTRY
+
+*/
+
 const $newEntryForm = document.querySelector('#new-entry-form')
 const $newEntryImg = document.querySelector('.new-entry img')
 const $newEntryPhotoURL = document.querySelector('#new-entry-photoURL')
@@ -83,5 +89,105 @@ $newEntryForm.addEventListener('submit', async (e) => {
     data.nextEntryId++
     $newEntryImg.setAttribute('src', "./images/placeholder-image-square.jpg")
     e.target.reset()
+    const $newEntry = renderEntry(newEntry)
+    $viewEntriesList.insertBefore($newEntry, $viewEntriesList.firstChild)
+    setEntryVisibility()
+    viewSwap('entries')
   }
 })
+
+/*
+
+    VIEW ENTRIES
+
+*/
+
+function renderEntry(entry) {
+  /*
+
+  <li>
+    <div class="img-wrapper">
+      <img src="./images/placeholder-image-square.jpg" />
+    </div>
+    <div class="text-wrapper">
+      <h3>Ada Lovelace</h3>
+      <p>Augusta Ada King, Countess of Lovelace was an English mathematician and writer</p>
+    </div>
+  </li>
+
+  */
+
+  const li = document.createElement('li')
+  const imgWrapper = document.createElement('div')
+  const entryImg = document.createElement('img')
+  const textWrapper = document.createElement('div')
+  const entryTitle = document.createElement('h3')
+  const entryTitleText = document.createTextNode(entry.title)
+  const entryDescription = document.createElement('p')
+  const entryDescriptionText = document.createTextNode(entry.notes)
+
+  imgWrapper.setAttribute('class', 'img-wrapper')
+  entryImg.setAttribute('src', entry.photoURL)
+  textWrapper.setAttribute('class', 'text-wrapper')
+  entryTitle.appendChild(entryTitleText)
+  entryDescription.appendChild(entryDescriptionText)
+  li.appendChild(imgWrapper)
+  imgWrapper.appendChild(entryImg)
+  li.appendChild(textWrapper)
+  textWrapper.appendChild(entryTitle)
+  textWrapper.appendChild(entryDescription)
+
+  return li
+}
+
+const $viewEntries = document.querySelector('.view-entries')
+const $viewEntriesList = document.querySelector('.view-entries ul')
+const $noEntries = document.querySelector('#no-entries')
+
+function setEntryVisibility() {
+  // Display entries if there are any
+  if (data.entries.length) {
+    $noEntries.classList.add('hidden')
+    $viewEntriesList.classList.remove('hidden')
+  }
+  
+  // Display "no entries" text if none available
+  else {
+    $noEntries.classList.remove('hidden')
+    $viewEntriesList.classList.add('hidden')
+  }
+}
+setEntryVisibility()
+
+// Render all current entries upon page load
+data.entries.forEach(entry => {
+  const newEntry = renderEntry(entry)
+  $viewEntriesList.appendChild(newEntry)
+})
+
+// View Swapping
+const $views = [
+  document.querySelector('div[data-view="entry-form"'),
+  document.querySelector('div[data-view="entries"')
+]
+
+function viewSwap(viewName) {
+  $views.forEach(view => {
+    if (view.getAttribute('data-view') === viewName) {
+      view.classList.remove('hidden')
+    } else {
+      view.classList.add('hidden')
+    }
+  })
+  data.view = viewName
+}
+const prevSessionView = data.view
+viewSwap(prevSessionView)
+
+const $newEntryBtn = document.querySelector('#new-entry-btn') 
+const $viewEntriesBtn = document.querySelector('#view-entries-btn')
+const $navViewEntriesBtn = document.querySelector('header button')
+
+$newEntryBtn.addEventListener('click', () => viewSwap('entry-form'))
+$viewEntriesBtn.addEventListener('click', () => viewSwap('entries'))
+$navViewEntriesBtn.addEventListener('click', () => viewSwap('entries'))
