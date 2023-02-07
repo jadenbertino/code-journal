@@ -89,6 +89,8 @@ $newEntryForm.addEventListener('submit', async (e) => {
     data.nextEntryId++
     $newEntryImg.setAttribute('src', "./images/placeholder-image-square.jpg")
     e.target.reset()
+    const $newEntry = renderEntry(data.entries[0])
+    $viewEntriesList.insertBefore($newEntry, $viewEntriesList.firstChild)
   }
 })
 
@@ -136,12 +138,26 @@ function renderEntry(entry) {
   return li
 }
 
-// Display Entries
+// Render All Entries
+const $viewEntries = document.querySelector('.view-entries')
 const $viewEntriesList = document.querySelector('.view-entries ul')
-data.entries.forEach(entry => {
-  const newEntry = renderEntry(entry)
-  $viewEntriesList.appendChild(newEntry)
-})
+const $noEntries = document.querySelector('#no-entries')
+
+function renderAllEntries() {
+  const entries = data.entries
+  if (entries.length) {
+    $noEntries.classList.add('hidden')
+    $viewEntries.classList.remove('hidden')
+    entries.forEach(entry => {
+      const newEntry = renderEntry(entry)
+      $viewEntriesList.appendChild(newEntry)
+    })
+  } else {
+    $noEntries.classList.remove('hidden')
+    $viewEntriesList.classList.add('hidden')
+  }
+}
+renderAllEntries()
 
 // View Swapping
 const $views = [
