@@ -1,3 +1,10 @@
+/*
+
+    NEW ENTRY
+
+*/
+
+
 const $newEntryForm = document.querySelector('#new-entry-form')
 const $newEntryImg = document.querySelector('.new-entry img')
 const $newEntryPhotoURL = document.querySelector('#new-entry-photoURL')
@@ -84,4 +91,55 @@ $newEntryForm.addEventListener('submit', async (e) => {
     $newEntryImg.setAttribute('src', "./images/placeholder-image-square.jpg")
     e.target.reset()
   }
+})
+
+/*
+
+    VIEW ENTRIES
+
+*/
+
+function renderEntry(entry) {
+  /*
+
+  <li>
+    <div class="img-wrapper">
+      <img src="./images/placeholder-image-square.jpg" />
+    </div>
+    <div class="text-wrapper">
+      <h3>Ada Lovelace</h3>
+      <p>Augusta Ada King, Countess of Lovelace was an English mathematician and writer</p>
+    </div>
+  </li>
+
+  */
+
+  const li = document.createElement('li')
+  const imgWrapper = document.createElement('div')
+  const entryImg = document.createElement('img')
+  const textWrapper = document.createElement('div')
+  const entryTitle = document.createElement('h3')
+  const entryTitleText = document.createTextNode(entry.title)
+  const entryDescription = document.createElement('p')
+  const entryDescriptionText = document.createTextNode(entry.notes)
+
+  imgWrapper.setAttribute('class', 'img-wrapper')
+  entryImg.setAttribute('src', entry.photoURL)
+  textWrapper.setAttribute('class', 'text-wrapper')
+  entryTitle.appendChild(entryTitleText)
+  entryDescription.appendChild(entryDescriptionText)
+  li.appendChild(imgWrapper)
+  imgWrapper.appendChild(entryImg)
+  li.appendChild(textWrapper)
+  textWrapper.appendChild(entryTitle)
+  textWrapper.appendChild(entryDescription)
+
+  return li
+}
+
+// Display Entries
+const $viewEntries = document.querySelector('.view-entries ul')
+data.entries.forEach(entry => {
+  const newEntry = renderEntry(entry)
+  $viewEntries.appendChild(newEntry)
 })
