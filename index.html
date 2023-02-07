@@ -29,7 +29,7 @@
     </header>
     <main class="container">
       <div class="row">
-        <div class="new-entry" data-view="entry-form">
+        <div class="new-entry hidden" data-view="entry-form">
           <form id="new-entry-form">
             <h1>New Entry</h1>
             <div class="form-wrapper">
@@ -62,7 +62,31 @@
           </form>
         </div>
       </div>
-      <div data-view="entries" class="hidden"></div>
+      <div data-view="entries" class="view-entries">
+        <div class="header">
+          <h1>Entries</h1>
+        </div>
+        <ul>
+          <li>
+            <div class="img-wrapper">
+              <img src="./images/placeholder-image-square.jpg" />
+            </div>
+            <div class="text-wrapper">
+              <h3>Ada Lovelace</h3>
+              <p>Augusta Ada King, Countess of Lovelace was an English mathematician and writer</p>
+            </div>
+          </li>
+          <li>
+            <div class="img-wrapper">
+              <img src="./images/placeholder-image-square.jpg" />
+            </div>
+            <div class="text-wrapper">
+              <h3>Ada Lovelace</h3>
+              <p>Augusta Ada King, Countess of Lovelace was an English mathematician and writer</p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>

@@ -1,3 +1,7 @@
+html {
+  width: 100%
+}
+
 body {
   background-color: #F0F0F0;
   color: #292929;
@@ -112,7 +116,7 @@ header span {
 
 /*
 
-    Desktop
+    NEW ENTRY => Desktop
 
 */
 
@@ -132,5 +136,69 @@ header span {
 
   .new-entry textarea {
     min-height: 200px;
+  }
+}
+
+/*
+
+    DISPLAY ENTRIES
+
+*/
+
+.view-entries h1 {
+  margin-top: 16px;
+}
+
+.view-entries li {
+  list-style-type: none;
+  margin: 24px 0 40px;
+}
+
+.view-entries img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.view-entries .img-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 400px;
+}
+
+.view-entries h3 {
+  font-size: 20px;
+  margin: 16px 0;
+}
+
+/*
+
+    DISPLAY ENTRIES --- DESKTOP
+
+*/
+
+@media screen and (min-width: 992px) {
+  
+  .view-entries li {
+    display: flex;
+    margin-bottom: 40px;
+  }
+
+  .view-entries h3 {
+    font-size: 20px;
+    margin-top: 0;
+  }
+  
+  .view-entries .img-wrapper {
+    width: 50%;
+    margin-right: 12px;
+  }
+
+  .view-entries .text-wrapper {
+    margin-left: 12px;
+    width: 50%;
   }
 }
