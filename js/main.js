@@ -4,7 +4,6 @@
 
 */
 
-
 const $newEntryForm = document.querySelector('#new-entry-form')
 const $newEntryImg = document.querySelector('.new-entry img')
 const $newEntryPhotoURL = document.querySelector('#new-entry-photoURL')
@@ -138,8 +137,31 @@ function renderEntry(entry) {
 }
 
 // Display Entries
-const $viewEntries = document.querySelector('.view-entries ul')
+const $viewEntriesList = document.querySelector('.view-entries ul')
 data.entries.forEach(entry => {
   const newEntry = renderEntry(entry)
-  $viewEntries.appendChild(newEntry)
+  $viewEntriesList.appendChild(newEntry)
 })
+
+// View Swapping
+const $views = [
+  document.querySelector('div[data-view="entry-form"'),
+  document.querySelector('div[data-view="entries"')
+]
+
+function viewSwap(viewName) {
+  $views.forEach(view => {
+    if (view.getAttribute('data-view') === viewName) {
+      view.classList.remove('hidden')
+    } else {
+      view.classList.add('hidden')
+    }
+  })
+  data.view = viewName
+}
+
+const $newEntryBtn = document.querySelector('#new-entry-btn') 
+const $viewEntriesBtn = document.querySelector('#view-entries-btn')
+
+$newEntryBtn.addEventListener('click', () => viewSwap('entry-form'))
+$viewEntriesBtn.addEventListener('click', () => viewSwap('entries'))

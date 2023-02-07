@@ -29,9 +29,12 @@
     </header>
     <main class="container">
       <div class="row">
-        <div class="new-entry hidden" data-view="entry-form">
-          <form id="new-entry-form">
+        <div class="new-entry" data-view="entry-form">
+          <div class="form-header">
             <h1>New Entry</h1>
+            <button id="view-entries-btn">VIEW ENTRIES</button>
+          </div>
+          <form id="new-entry-form">
             <div class="form-wrapper">
               <div class="col-half img-wrapper">
                 <img
@@ -58,13 +61,14 @@
               <span>Notes</span>
               <textarea name="notes" id="new-entry-notes" required></textarea>
             </label>
-            <button class="btn">SAVE</button>
+            <button>SAVE</button>
           </form>
         </div>
       </div>
-      <div data-view="entries" class="view-entries">
+      <div data-view="entries" class="view-entries hidden">
         <div class="header">
           <h1>Entries</h1>
+          <button id="new-entry-btn">NEW ENTRY</button>
         </div>
         <ul></ul>
       </div>
