@@ -21,6 +21,7 @@ const $noEntries = document.querySelector('#no-entries');
 const $newEntryBtn = document.querySelector('#new-entry-btn');
 const $viewEntriesBtn = document.querySelector('#view-entries-btn');
 const $navViewEntriesBtn = document.querySelector('header button');
+const $confirmDeleteBtn = document.querySelector('.confirm-delete-btn')
 
 /*
 
@@ -260,8 +261,6 @@ $newEntryBtn.addEventListener('click', () => viewSwap('entry-form'));
 $viewEntriesBtn.addEventListener('click', () => viewSwap('entries'));
 $navViewEntriesBtn.addEventListener('click', () => viewSwap('entries'));
 
-
-
 /*
 
     EDIT ENTRY
@@ -302,10 +301,35 @@ $viewEntriesList.addEventListener('click', (e) => {
 
 */
 
+// Delete Entry => Show Modal
 $deleteEntryBtn.addEventListener('click', () => {
     $modalBackdrop.classList.remove('hidden')
 })
 
+// Cancel => Hide modal
 $cancelDeleteBtn.addEventListener('click', () => {
   $modalBackdrop.classList.add('hidden')
+})
+
+// Confirm Delete
+$confirmDeleteBtn.addEventListener('click', () => {
+  const targetId = data.editing.entryId
+
+  // Remove entry from data.entries
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId == targetId) {
+      data.entries.splice(i, 1)
+    }
+  }
+  
+  // Remove entry from DOM
+  for (let domEntry of $viewEntriesList.children) {
+    if (domEntry.getAttribute('data-entry-id') == targetId) {
+      domEntry.remove()
+    }
+  }
+
+  // Hide modal & view entries
+  $modalBackdrop.classList.add('hidden')
+  viewSwap('entries')
 })
