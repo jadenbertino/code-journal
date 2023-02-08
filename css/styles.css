@@ -89,7 +89,7 @@ header button {
 }
 
 .new-entry label,
-.new-entry form button {
+.new-entry .btns-wrapper {
   margin-top: 24px;
 }
 
@@ -124,8 +124,10 @@ header button {
   resize: vertical; /* by default can also resize horizontally, this disables it */
 }
 
-.new-entry form button {
-  margin-left: auto;
+.new-entry .btns-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
 }
 
 /*
@@ -192,7 +194,7 @@ header button {
 }
 
 button.pencil {
-  background-color: #fff;
+  background-color: transparent;
   color: #562B81;
   font-size: 16px;
 }

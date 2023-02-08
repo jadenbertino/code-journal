@@ -32,7 +32,7 @@
     </header>
     <main class="container">
       <div class="row">
-        <div class="new-entry hidden" data-view="entry-form">
+        <div class="new-entry" data-view="entry-form">
           <div class="form-header">
             <h1>New Entry</h1>
             <button class="btn" id="view-entries-btn">VIEW ENTRIES</button>
@@ -71,7 +71,10 @@
               <span>Notes</span>
               <textarea name="notes" id="new-entry-notes" required></textarea>
             </label>
-            <button class="btn">SAVE</button>
+            <div class="btns-wrapper">
+              <button class="btn">SAVE</button>
+              <button class="btn hidden" id="delete-entry-btn">DELETE</button>
+            </div>
           </form>
         </div>
       </div>

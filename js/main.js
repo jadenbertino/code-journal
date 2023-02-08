@@ -8,6 +8,8 @@ const $newEntryForm = document.querySelector('#new-entry-form');
 const $newEntryImg = document.querySelector('.new-entry img');
 const $newEntryPhotoURL = document.querySelector('#new-entry-photoURL');
 const $newEntryHeader = document.querySelector('.form-header h1')
+const $deleteEntryBtn = document.querySelector('#delete-entry-btn')
+
 
 
 function loadImg(src) {
@@ -89,7 +91,7 @@ $newEntryForm.addEventListener('submit', async e => {
   }
 
   // if newEntry is length 4 then all form controls were pushed aka all form controls were all valid
-  if (Object.keys(newEntry).length === $newEntryForm.length) {
+  if (Object.keys(newEntry).length === 4) {
 
     // new entry
     if (!data.editing) {
@@ -227,6 +229,7 @@ function viewSwap(viewName) {
     formControls.title.value = ''
     formControls.photoURL.value = ''
     formControls.notes.value = ''
+    $deleteEntryBtn.classList.add('hidden')
     $newEntryImg.setAttribute('src', './images/placeholder-image-square.jpg');
   }
 
@@ -283,4 +286,5 @@ $viewEntriesList.addEventListener('click', (e) => {
 
   // Change header from "New Entry" to "Edit Entry"
   $newEntryHeader.textContent = "Edit Entry"
+  $deleteEntryBtn.classList.remove('hidden')
 })
