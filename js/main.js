@@ -1,13 +1,32 @@
 /*
 
-    NEW ENTRY
+  DOM
 
 */
 
 const $newEntryForm = document.querySelector('#new-entry-form');
 const $newEntryImg = document.querySelector('.new-entry img');
 const $newEntryPhotoURL = document.querySelector('#new-entry-photoURL');
-const $newEntryHeader = document.querySelector('.form-header h1')
+const $newEntryHeader = document.querySelector('.form-header h1');
+const $deleteEntryBtn = document.querySelector('.delete-entry-btn');
+const $modalBackdrop = document.querySelector('.modal-backdrop');
+const $cancelDeleteBtn = document.querySelector('.cancel-delete-btn');
+const $views = [
+  document.querySelector('div[data-view="entry-form"'),
+  document.querySelector('div[data-view="entries"')
+];
+const $viewEntriesList = document.querySelector('.view-entries ul');
+const $noEntries = document.querySelector('#no-entries');
+const $newEntryBtn = document.querySelector('#new-entry-btn');
+const $viewEntriesBtn = document.querySelector('#view-entries-btn');
+const $navViewEntriesBtn = document.querySelector('header button');
+const $confirmDeleteBtn = document.querySelector('.confirm-delete-btn')
+
+/*
+
+    NEW ENTRY
+
+*/
 
 
 function loadImg(src) {
@@ -89,7 +108,7 @@ $newEntryForm.addEventListener('submit', async e => {
   }
 
   // if newEntry is length 4 then all form controls were pushed aka all form controls were all valid
-  if (Object.keys(newEntry).length === $newEntryForm.length) {
+  if (Object.keys(newEntry).length === 4) {
 
     // new entry
     if (!data.editing) {
@@ -105,7 +124,7 @@ $newEntryForm.addEventListener('submit', async e => {
       const targetID = data.editing.entryId
       newEntry.entryId = targetID
       for (let i = 0; i < data.entries.length; i++) {
-        if (data.entries[i].entryId == targetID) {
+        if (data.entries[i].entryId === targetID) {
           data.entries[i] = newEntry
         }
       }
@@ -189,9 +208,7 @@ function renderEntry(entry) {
   return li;
 }
 
-const $viewEntries = document.querySelector('.view-entries');
-const $viewEntriesList = document.querySelector('.view-entries ul');
-const $noEntries = document.querySelector('#no-entries');
+
 
 function setEntryVisibility() {
   // Display entries if there are any
@@ -215,11 +232,6 @@ data.entries.forEach(entry => {
 });
 
 // View Swapping
-const $views = [
-  document.querySelector('div[data-view="entry-form"'),
-  document.querySelector('div[data-view="entries"')
-];
-
 function viewSwap(viewName) {
   // reset forms if swapping to that view
   if (viewName === 'entry-form') {
@@ -227,6 +239,7 @@ function viewSwap(viewName) {
     formControls.title.value = ''
     formControls.photoURL.value = ''
     formControls.notes.value = ''
+    $deleteEntryBtn.classList.add('hidden')
     $newEntryImg.setAttribute('src', './images/placeholder-image-square.jpg');
   }
 
@@ -243,15 +256,9 @@ function viewSwap(viewName) {
 const prevSessionView = data.view;
 viewSwap(prevSessionView);
 
-const $newEntryBtn = document.querySelector('#new-entry-btn');
-const $viewEntriesBtn = document.querySelector('#view-entries-btn');
-const $navViewEntriesBtn = document.querySelector('header button');
-
 $newEntryBtn.addEventListener('click', () => viewSwap('entry-form'));
 $viewEntriesBtn.addEventListener('click', () => viewSwap('entries'));
 $navViewEntriesBtn.addEventListener('click', () => viewSwap('entries'));
-
-
 
 /*
 
@@ -283,4 +290,47 @@ $viewEntriesList.addEventListener('click', (e) => {
 
   // Change header from "New Entry" to "Edit Entry"
   $newEntryHeader.textContent = "Edit Entry"
+  $deleteEntryBtn.classList.remove('hidden')
+})
+
+
+/*
+
+    DELETE ENTRY
+
+*/
+
+// Delete Entry => Show Modal
+$deleteEntryBtn.addEventListener('click', () => {
+    $modalBackdrop.classList.remove('hidden')
+})
+
+// Cancel => Hide modal
+$cancelDeleteBtn.addEventListener('click', () => {
+  $modalBackdrop.classList.add('hidden')
+})
+
+// Confirm Delete
+$confirmDeleteBtn.addEventListener('click', () => {
+  const targetId = data.editing.entryId
+
+  // Remove entry from data.entries
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId == targetId) {
+      data.entries.splice(i, 1)
+    }
+  }
+  
+  // Remove entry from DOM
+  for (let domEntry of $viewEntriesList.children) {
+    if (domEntry.getAttribute('data-entry-id') == targetId) {
+      domEntry.remove()
+    }
+  }
+
+  // Hide modal & view entries
+  $modalBackdrop.classList.add('hidden')
+  data.editing = null
+  setEntryVisibility()
+  viewSwap('entries')
 })

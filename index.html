@@ -32,7 +32,7 @@
     </header>
     <main class="container">
       <div class="row">
-        <div class="new-entry hidden" data-view="entry-form">
+        <div class="new-entry" data-view="entry-form">
           <div class="form-header">
             <h1>New Entry</h1>
             <button class="btn" id="view-entries-btn">VIEW ENTRIES</button>
@@ -71,7 +71,10 @@
               <span>Notes</span>
               <textarea name="notes" id="new-entry-notes" required></textarea>
             </label>
-            <button class="btn">SAVE</button>
+            <div class="btns-wrapper">
+              <button class="btn">SAVE</button>
+              <button class="delete-entry-btn hidden" type="button">Delete Entry</button>
+            </div>
           </form>
         </div>
       </div>
@@ -84,6 +87,15 @@
         <ul></ul>
       </div>
     </main>
+    <div class="modal-backdrop hidden">
+      <div class="modal">
+        <h3>Are you sure you want to delete this entry?</h3>
+        <div class="btns-wrapper">
+          <button class="btn cancel-delete-btn">CANCEL</button>
+          <button class="btn confirm-delete-btn">CONFIRM</button>
+        </div>
+      </div>
+    </div>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
   </body>
