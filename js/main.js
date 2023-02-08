@@ -15,7 +15,6 @@ const $views = [
   document.querySelector('div[data-view="entry-form"'),
   document.querySelector('div[data-view="entries"')
 ];
-const $viewEntries = document.querySelector('.view-entries');
 const $viewEntriesList = document.querySelector('.view-entries ul');
 const $noEntries = document.querySelector('#no-entries');
 const $newEntryBtn = document.querySelector('#new-entry-btn');
@@ -125,7 +124,7 @@ $newEntryForm.addEventListener('submit', async e => {
       const targetID = data.editing.entryId
       newEntry.entryId = targetID
       for (let i = 0; i < data.entries.length; i++) {
-        if (data.entries[i].entryId == targetID) {
+        if (data.entries[i].entryId === targetID) {
           data.entries[i] = newEntry
         }
       }
