@@ -332,4 +332,5 @@ $confirmDeleteBtn.addEventListener('click', () => {
   // Hide modal & view entries
   $modalBackdrop.classList.add('hidden')
   viewSwap('entries')
+  data.editing = null
 })
