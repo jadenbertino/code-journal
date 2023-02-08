@@ -1,15 +1,32 @@
 /*
 
-    NEW ENTRY
+  DOM
 
 */
 
 const $newEntryForm = document.querySelector('#new-entry-form');
 const $newEntryImg = document.querySelector('.new-entry img');
 const $newEntryPhotoURL = document.querySelector('#new-entry-photoURL');
-const $newEntryHeader = document.querySelector('.form-header h1')
-const $deleteEntryBtn = document.querySelector('#delete-entry-btn')
+const $newEntryHeader = document.querySelector('.form-header h1');
+const $deleteEntryBtn = document.querySelector('.delete-entry-btn');
+const $modalBackdrop = document.querySelector('.modal-backdrop');
+const $cancelDeleteBtn = document.querySelector('.cancel-delete-btn');
+const $views = [
+  document.querySelector('div[data-view="entry-form"'),
+  document.querySelector('div[data-view="entries"')
+];
+const $viewEntries = document.querySelector('.view-entries');
+const $viewEntriesList = document.querySelector('.view-entries ul');
+const $noEntries = document.querySelector('#no-entries');
+const $newEntryBtn = document.querySelector('#new-entry-btn');
+const $viewEntriesBtn = document.querySelector('#view-entries-btn');
+const $navViewEntriesBtn = document.querySelector('header button');
 
+/*
+
+    NEW ENTRY
+
+*/
 
 
 function loadImg(src) {
@@ -191,9 +208,7 @@ function renderEntry(entry) {
   return li;
 }
 
-const $viewEntries = document.querySelector('.view-entries');
-const $viewEntriesList = document.querySelector('.view-entries ul');
-const $noEntries = document.querySelector('#no-entries');
+
 
 function setEntryVisibility() {
   // Display entries if there are any
@@ -217,11 +232,6 @@ data.entries.forEach(entry => {
 });
 
 // View Swapping
-const $views = [
-  document.querySelector('div[data-view="entry-form"'),
-  document.querySelector('div[data-view="entries"')
-];
-
 function viewSwap(viewName) {
   // reset forms if swapping to that view
   if (viewName === 'entry-form') {
@@ -245,10 +255,6 @@ function viewSwap(viewName) {
 }
 const prevSessionView = data.view;
 viewSwap(prevSessionView);
-
-const $newEntryBtn = document.querySelector('#new-entry-btn');
-const $viewEntriesBtn = document.querySelector('#view-entries-btn');
-const $navViewEntriesBtn = document.querySelector('header button');
 
 $newEntryBtn.addEventListener('click', () => viewSwap('entry-form'));
 $viewEntriesBtn.addEventListener('click', () => viewSwap('entries'));
@@ -287,4 +293,19 @@ $viewEntriesList.addEventListener('click', (e) => {
   // Change header from "New Entry" to "Edit Entry"
   $newEntryHeader.textContent = "Edit Entry"
   $deleteEntryBtn.classList.remove('hidden')
+})
+
+
+/*
+
+    DELETE ENTRY
+
+*/
+
+$deleteEntryBtn.addEventListener('click', () => {
+    $modalBackdrop.classList.remove('hidden')
+})
+
+$cancelDeleteBtn.addEventListener('click', () => {
+  $modalBackdrop.classList.add('hidden')
 })
