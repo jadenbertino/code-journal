@@ -209,6 +209,12 @@ header button {
   border: 2px solid #562B81;
 }
 
+.view-entries .reset-query-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
 .view-entries li {
   list-style-type: none;
   margin: 24px 0 50px;

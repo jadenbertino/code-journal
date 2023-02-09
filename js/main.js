@@ -15,6 +15,7 @@ const $newEntryBtn = document.querySelector('#new-entry-btn');
 const $viewEntriesList = document.querySelector('.view-entries ul');
 const $noEntries = document.querySelector('#no-entries');
 const $viewEntriesBtn = document.querySelector('#view-entries-btn');
+const $resetQueryBtn = document.querySelector('.reset-query-btn')
 
 // Edit Entries
 const $deleteEntryBtn = document.querySelector('.delete-entry-btn');
@@ -380,6 +381,10 @@ function renderEntries(query) {
   if (queriedEntries.length === 0) {
     $viewEntriesList.replaceChildren()
     setEntryVisibility("No entries match this query.")
+    $resetQueryBtn.classList.remove('hidden')
+    // TODO: show button to reset query
+    
+
   }
 
   // found matches => render entries into DOM elements
@@ -394,4 +399,10 @@ $searchEntriesForm.addEventListener('submit', (e) => {
   e.preventDefault()
   const query = e.target.searchQuery.value
   renderEntries(query)
+})
+
+$resetQueryBtn.addEventListener('click', () => {
+  $resetQueryBtn.classList.add('hidden')
+  $searchEntriesForm.searchQuery.value = ''
+  renderEntries('')
 })
