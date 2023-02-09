@@ -381,18 +381,16 @@ function renderEntries(query) {
   if (queriedEntries.length === 0) {
     $viewEntriesList.replaceChildren()
     setEntryVisibility("No entries match this query.")
-    $resetQueryBtn.classList.remove('hidden')
-    // TODO: show button to reset query
-    
-
   }
-
+  
   // found matches => render entries into DOM elements
   else {
     const domQueriedEntries = queriedEntries.map(entry => renderEntry(entry))
     $viewEntriesList.replaceChildren(...domQueriedEntries)
     setEntryVisibility()
   }
+  
+  $resetQueryBtn.classList.remove('hidden')
 }
 
 $searchEntriesForm.addEventListener('submit', (e) => {
