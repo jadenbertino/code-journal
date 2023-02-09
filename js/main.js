@@ -240,6 +240,7 @@ function renderAllEntries() {
     const newEntry = renderEntry(entry);
     $viewEntriesList.appendChild(newEntry);
   });
+  $resetQueryBtn.classList.add('hidden')
   setEntryVisibility()
 }
 renderAllEntries();
