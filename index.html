@@ -32,7 +32,7 @@
     </header>
     <main class="container">
       <div class="row">
-        <div class="new-entry" data-view="entry-form">
+        <div class="new-entry hidden" data-view="entry-form">
           <div class="form-header">
             <h1>New Entry</h1>
             <button class="btn" id="view-entries-btn">VIEW ENTRIES</button>
@@ -78,7 +78,7 @@
           </form>
         </div>
       </div>
-      <div data-view="entries" class="view-entries">
+      <div data-view="entries" class="view-entries hidden">
         <div class="header">
           <h1>Entries</h1>
           <button class="btn" id="new-entry-btn">NEW ENTRY</button>
@@ -87,9 +87,9 @@
             <button class="search-btn">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-            <input type="text">
+            <input type="text" name="searchQuery">
           </form>
-        <p id="no-entries" class="hidden">No entries have been recorded.</p>
+        <p id="no-entries" class="hidden"></p>
         <ul></ul>
       </div>
     </main>

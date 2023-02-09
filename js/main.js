@@ -4,30 +4,37 @@
 
 */
 
+// New Entry
 const $newEntryForm = document.querySelector('#new-entry-form');
 const $newEntryImg = document.querySelector('.new-entry img');
 const $newEntryPhotoURL = document.querySelector('#new-entry-photoURL');
 const $newEntryHeader = document.querySelector('.form-header h1');
+const $newEntryBtn = document.querySelector('#new-entry-btn');
+
+// View Entries
+const $viewEntriesList = document.querySelector('.view-entries ul');
+const $noEntries = document.querySelector('#no-entries');
+const $viewEntriesBtn = document.querySelector('#view-entries-btn');
+
+// Edit Entries
 const $deleteEntryBtn = document.querySelector('.delete-entry-btn');
 const $modalBackdrop = document.querySelector('.modal-backdrop');
 const $cancelDeleteBtn = document.querySelector('.cancel-delete-btn');
+const $confirmDeleteBtn = document.querySelector('.confirm-delete-btn')
+
+// Misc
 const $views = [
   document.querySelector('div[data-view="entry-form"'),
   document.querySelector('div[data-view="entries"')
 ];
-const $viewEntriesList = document.querySelector('.view-entries ul');
-const $noEntries = document.querySelector('#no-entries');
-const $newEntryBtn = document.querySelector('#new-entry-btn');
-const $viewEntriesBtn = document.querySelector('#view-entries-btn');
 const $navViewEntriesBtn = document.querySelector('header button');
-const $confirmDeleteBtn = document.querySelector('.confirm-delete-btn')
+const $searchEntriesForm = document.querySelector('form.search-wrapper')
 
 /*
 
     NEW ENTRY
 
 */
-
 
 function loadImg(src) {
   return new Promise((resolve, reject) => {
@@ -209,10 +216,9 @@ function renderEntry(entry) {
 }
 
 
-
-function setEntryVisibility() {
+function setEntryVisibility(message = "No entries have been recorded.") {
   // Display entries if there are any
-  if (data.entries.length) {
+  if ($viewEntriesList.childNodes.length) {
     $noEntries.classList.add('hidden');
     $viewEntriesList.classList.remove('hidden');
   }
@@ -221,15 +227,21 @@ function setEntryVisibility() {
   else {
     $noEntries.classList.remove('hidden');
     $viewEntriesList.classList.add('hidden');
+    // update message if custom message provided
+    $noEntries.textContent = message
   }
 }
-setEntryVisibility();
 
-// Render all current entries upon page load
-data.entries.forEach(entry => {
-  const newEntry = renderEntry(entry);
-  $viewEntriesList.appendChild(newEntry);
-});
+// Render all current entries on page load
+function renderAllEntries() {
+  $viewEntriesList.replaceChildren() // clear any existing children before adding new ones
+  data.entries.forEach(entry => {
+    const newEntry = renderEntry(entry);
+    $viewEntriesList.appendChild(newEntry);
+  });
+  setEntryVisibility()
+}
+renderAllEntries();
 
 // View Swapping
 function viewSwap(viewName) {
@@ -333,4 +345,53 @@ $confirmDeleteBtn.addEventListener('click', () => {
   data.editing = null
   setEntryVisibility()
   viewSwap('entries')
+})
+
+
+/*
+
+    SEARCH ENTRIES
+
+*/
+
+function renderEntries(query) {
+  // empty query => display all entries
+  if (query === '') {
+    renderAllEntries()
+    return
+  }
+
+  // get list of entries to display
+  const queryWords = query.split(' ')
+  const queriedEntries = data.entries.filter(entry => {
+    // get all words in title + body of entry
+    const entryTitleWords = entry.title.split(' ')
+    const entryBodyWords = entry.notes.split(' ')
+    const allEntryWords = [...entryTitleWords, ...entryBodyWords].join('')
+    
+    // check if entry contains a word from query
+    for (let word of queryWords) {
+      if (allEntryWords.includes(word)) return true
+    }
+    return false
+  })
+  
+  // no matches => display no entries + remove all children
+  if (queriedEntries.length === 0) {
+    $viewEntriesList.replaceChildren()
+    setEntryVisibility("No entries match this query.")
+  }
+
+  // found matches => render entries into DOM elements
+  else {
+    const domQueriedEntries = queriedEntries.map(entry => renderEntry(entry))
+    $viewEntriesList.replaceChildren(...domQueriedEntries)
+    setEntryVisibility()
+  }
+}
+
+$searchEntriesForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+  const query = e.target.searchQuery.value
+  renderEntries(query)
 })
