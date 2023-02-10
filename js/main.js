@@ -402,6 +402,6 @@ $searchEntriesForm.addEventListener('submit', (e) => {
 
 $resetQueryBtn.addEventListener('click', () => {
   $resetQueryBtn.classList.add('hidden')
-  $searchEntriesForm.searchQuery.value = ''g
+  $searchEntriesForm.searchQuery.value = ''
   renderEntries('')
 })
